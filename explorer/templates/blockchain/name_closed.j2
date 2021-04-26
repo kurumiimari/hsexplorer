@@ -1,0 +1,234 @@
+{% extends "layout.j2" %}
+
+{% block content %}
+    <h1 class="text-white text-4xl font-bold mb-4">{{ name.name | depunycode }}/</h1>
+
+    <div class="pt-4 pb-4">
+        <div class="bg-white rounded-md filter drop-shadow">
+            <div class="px-4 py-2 border-b border-gray-200">
+                <h3 class="font-bold">Domain Summary</h3>
+            </div>
+
+            <div class="p-4">
+                <table>
+                    <tr>
+                        <th class="pb-2 pr-2 text-left font-light">Name Hash</th>
+                        <td class="pb-2">{{ name.hash }}</td>
+                    </tr>
+                    <tr>
+                        <th class="pb-2 pr-2 text-left font-light">Expiry</th>
+                        <td class="pb-2">
+                            {{ name.renewal_height }}
+                            (~{{ (name.renewal_height - block_height) | block_count_to_time }})
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pb-2 pr-2 text-left font-light">Highest Bid</th>
+                        <td class="pb-2">{{ name.highest_bid | as_hns }}</td>
+                    </tr>
+                    <tr>
+                        <th class="pb-2 pr-2 text-left font-light">Price Paid</th>
+                        <td class="pb-2">{{ name.price_paid | as_hns }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="pt-4 pb-4">
+        <div class="bg-white rounded-md filter drop-shadow">
+            <div class="px-4 py-2 border-b border-gray-200">
+                <h3 class="font-bold">Root Zone Records</h3>
+            </div>
+
+            <div class="p-4">
+                <div class="space-y-4">
+                    {% for ds in name.records['DS'] %}
+                        <div class="grid grid-cols-5 gap-4 border-b border-gray-200 pb-4">
+                            <div>
+                                <p class="text-sm text-gray-400 font-bold mb-1">Type</p>
+                                DS
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-400 font-bold mb-1">Key Tag</p>
+                                {{ ds.key_tag }}
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-400 font-bold mb-1">Algorithm</p>
+                                {{ ds.algorithm }}
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-400 font-bold mb-1">Digest Type</p>
+                                {{ ds.digest_type }}
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-400 font-bold mb-1">Digest</p>
+                                {{ ds.algorithm.hex() }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {% for ns in name.records['NS'] %}
+                        <div class="grid grid-cols-5 gap-4 border-b border-gray-200 pb-4">
+                            <div>
+                                <p class="text-sm text-gray-400 font-bold mb-1">Type</p>
+                                NS
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-400 font-bold mb-1">NS</p>
+                                {{ ns.ns }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {% for glue in name.records['GLUE4'] %}
+                        <div class="grid grid-cols-5 gap-4 border-b border-gray-200 pb-4">
+                            <div>
+                                <p class="text-sm text-gray-400 font-bold mb-1">Type</p>
+                                GLUE4
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-400 font-bold mb-1">NS</p>
+                                {{ glue.ns }}
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-400 font-bold mb-1">Address</p>
+                                {{ glue.address }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {% for glue in name.records['GLUE6'] %}
+                        <div class="grid grid-cols-5 gap-4 border-b border-gray-200 pb-4">
+                            <div>
+                                <p class="text-sm text-gray-400 font-bold mb-1">Type</p>
+                                GLUE6
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-400 font-bold mb-1">NS</p>
+                                {{ glue.ns }}
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-400 font-bold mb-1">Address</p>
+                                {{ glue.address }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {% for synth in name.records['SYNTH4'] %}
+                        <div class="grid grid-cols-5 gap-4 border-b border-gray-200 pb-4">
+                            <div>
+                                <p class="text-sm text-gray-400 font-bold mb-1">Type</p>
+                                SYNTH4
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-400 font-bold mb-1">Address</p>
+                                {{ synth.address }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {% for synth in name.records['SYNTH6'] %}
+                        <div class="grid grid-cols-5 gap-4 border-b border-gray-200 pb-4">
+                            <div>
+                                <p class="text-sm text-gray-400 font-bold mb-1">Type</p>
+                                SYNTH6
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-400 font-bold mb-1">Address</p>
+                                {{ synth.address }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {% for txt in name.records['TXT'] %}
+                        <div class="grid grid-cols-5 gap-4 border-b border-gray-200 pb-4">
+                            <div>
+                                <p class="text-sm text-gray-400 font-bold mb-1">Type</p>
+                                TXT
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-400 font-bold mb-1">Entries</p>
+                                {% for entry in txt.entries %}
+                                    {{ entry.decode('utf-8') }}<br>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pt-4 pb-4">
+        <div class="bg-white rounded-md filter drop-shadow">
+            <div class="px-4 py-2 border-b border-gray-200">
+                <h3 class="font-bold">Transaction History</h3>
+            </div>
+            <div class="p-4 space-y-2">
+                {% for out in name.outputs %}
+                    {% if out.covenant_action == 'BID' %}
+                        <div class="flex flex-row items-center border-b border-gray-200 pb-2">
+                            <div class="flex-grow-0">
+                                <div class="bg-gray-200 p-2 rounded-sm">
+                                    BID
+                                </div>
+                            </div>
+                            <div class="ml-2 flex-grow-0">
+                                <div>
+                                    <a href="/txs/{{ out.tx_hash }}" class="text-purple-500">
+                                        {{ out.tx_hash | middle_ellipsis }}
+                                    </a>
+                                </div>
+                                <div class="text-gray-400">{{ out.tx.mtime | time_ago }}</div>
+                            </div>
+                            <div class="ml-auto text-right">
+                                {% if out.corresponding_reveal %}
+                                    <div>{{ out.corresponding_reveal.value | as_hns }}</div>
+                                    <div class="text-gray-400">
+                                        + {{ (out.value - out.corresponding_reveal.value) | as_hns }} added
+                                        blind
+                                    </div>
+                                {% else %}
+                                    <div>{{ out.value | as_hns }}</div>
+                                    <div class="text-gray-400">bid never revealed</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="flex flex-row items-center border-b border-gray-200 pb-2">
+                            <div class="flex-grow-0">
+                                <div class="rounded-sm mr-2 bg-gray-200 w-12 h-12 flex text-center flex flex-row items-center justify-center">
+                                    {% if out.covenant_action == 'OPEN' %}
+                                        OPN
+                                    {% elif out.covenant_action == 'BID' %}
+                                        BID
+                                    {% elif out.covenant_action == 'REVEAL' %}
+                                        REV
+                                    {% elif out.covenant_action == 'REGISTER' %}
+                                        REG
+                                    {% elif out.covenant_action == 'TRANSFER' %}
+                                        XFR
+                                    {% elif out.covenant_action == 'FINALIZE' %}
+                                        FLZ
+                                    {% elif out.covenant_action == 'RENEW' %}
+                                        RNW
+                                    {% elif out.covenant_action == 'REDEEM' %}
+                                        RDM
+                                    {% elif out.covenant_action == 'UPDATE' %}
+                                        UPD
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="ml-2 flex-grow-0">
+                                <div>
+                                    <a href="/txs/{{ out.tx_hash }}" class="text-purple-500">
+                                        {{ out.tx_hash | middle_ellipsis }}
+                                    </a>
+                                </div>
+                                <div class="text-gray-400">{{ out.tx.mtime | time_ago }}</div>
+                            </div>
+                            <div class="bg-gray-200 ml-auto p-2 rounded-sm">
+                                {{ out.value | as_hns }}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

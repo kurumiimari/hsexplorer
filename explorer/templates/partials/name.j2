@@ -1,0 +1,18 @@
+<div class="flex flex-row border-b border-gray-100 pb-4 items-center last:border-b-0 last:pb-0">
+    {% if show_type %}
+        <div class="rounded-sm mr-2 bg-gray-200 w-12 h-12 flex text-center flex flex-row items-center justify-center text-gray-400">
+            AC
+        </div>
+    {% endif %}
+    <div>
+        <a class="text-purple-500" href="/names/{{ name.name }}">{{ name.name | depunycode }}/</a>
+        <p class="text-gray-300 text-sm">
+            {{ name.status['bidding_period_end'] - block_height }}
+            blocks left
+            (~{{ (name.status['bidding_period_end'] - block_height) | block_count_to_time }})
+        </p>
+    </div>
+    <div class="bg-gray-200 text-gray-400 px-2 py-1 rounded-sm ml-auto">
+        {{ name.total_bids }} bids
+    </div>
+</div>

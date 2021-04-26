@@ -1,0 +1,73 @@
+<div class="flex flex-row gap-4">
+    <div class="w-50 flex-1">
+        <h4 class="uppercase mb-2 font-bold text-gray-400">Inputs</h4>
+
+        <div class="space-y-4">
+            {% for input in tx.inputs %}
+                <div class="flex flex-row items-center">
+                    {% if input.coinbase %}
+                        <div class="bg-gray-200 ml-auto p-2 rounded-sm">
+                            COINBASE
+                        </div>
+                    {% else %}
+                        <a href="/addrs/{{ input.prevout_address }}" class="text-purple-500">
+                            {{ input.prevout_address | middle_ellipsis }}
+                        </a>
+                        <div class="bg-gray-200 ml-auto p-2 rounded-sm">
+                            {{ input.prevout.value | as_hns }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="flex-initial pt-10">
+        <img src="{{ url_for('static', filename='images/caret-right.svg') }}">
+    </div>
+    <div class="w-50 flex-1">
+        <h4 class="uppercase mb-2 font-bold text-gray-400">Outputs</h4>
+
+        <div class="space-y-4">
+            {% for out in tx.outputs %}
+                <div class="flex flex-row items-center">
+                    {% if out.covenant_action == 'NONE' %}
+                        <a href="/addrs/{{ out.address }}" class="text-purple-500">
+                            {{ out.address | middle_ellipsis }}
+                        </a>
+                    {% else %}
+                        <div class="rounded-sm mr-2 bg-gray-200 w-12 h-12 flex text-center flex flex-row items-center justify-center">
+                            {% if out.covenant_action == 'OPEN' %}
+                                OPN
+                            {% elif out.covenant_action == 'BID' %}
+                                BID
+                            {% elif out.covenant_action == 'REVEAL' %}
+                                REV
+                            {% elif out.covenant_action == 'REGISTER' %}
+                                REG
+                            {% elif out.covenant_action == 'TRANSFER' %}
+                                XFR
+                            {% elif out.covenant_action == 'FINALIZE' %}
+                                FLZ
+                            {% elif out.covenant_action == 'RENEW' %}
+                                RNW
+                            {% elif out.covenant_action == 'REDEEM' %}
+                                RDM
+                            {% elif out.covenant_action == 'UPDATE' %}
+                                UPD
+                            {% endif %}
+                        </div>
+                        {%  print(out) %}
+                        <a href="/names/{{ out.name.name }}" class="text-purple-500">
+                            {{ out.name.name | depunycode }}
+                        </a>
+                    {% endif %}
+                    {% if out.covenant_action == 'NONE' %}
+                        <div class="bg-gray-200 ml-auto p-2 rounded-sm">
+                            {{ out.value | as_hns }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

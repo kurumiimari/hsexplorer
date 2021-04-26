@@ -1,0 +1,50 @@
+{% extends "layout.j2" %}
+
+{% block content %}
+    <h1 class="text-white text-4xl font-bold mb-4">Block Detail</h1>
+
+    <div class="pt-4 mb-4">
+        <div class="bg-white rounded-md filter drop-shadow">
+            <div class="p-4">
+                <table>
+                    <tr>
+                        <th class="pb-2 pr-2 text-left font-light">Block Hash</th>
+                        <td class="pb-2">{{ block.hash }}</td>
+                    </tr>
+                    <tr>
+                        <th class="pb-2 pr-2 text-left font-light">Height</th>
+                        <td class="pb-2">{{ block.height }}</td>
+                    </tr>
+                    <tr>
+                        <th class="pb-2 pr-2 text-left font-light">Previous Block</th>
+                        <td class="pb-2">
+                            <a href="/blocks/{{ block.prev_hash }}" class="text-purple-500">{{ block.prev_hash }}</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pr-2 text-left font-light">Merkle Root</th>
+                        <td>{{ block.merkle_root }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {% for tx in txs %}
+        <div class="pt-4 pb-4">
+            <div class="bg-white rounded-md filter drop-shadow">
+                <div class="px-4 py-2 border-b border-gray-200">
+                    <h3 class="font-bold">TX # <a href="/txs/{{ tx.hash }}" class="text-purple-500">{{ tx.hash }}</a>
+                    </h3>
+                </div>
+                <div class="p-4">
+                    {% include 'partials/tx.j2' %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="pt-4 pb-4">
+        {% include 'partials/pagination.j2' %}
+    </div>
+{% endblock %}

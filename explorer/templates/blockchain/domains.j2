@@ -1,0 +1,29 @@
+{% extends "layout.j2" %}
+
+{% block content %}
+    <div class="pt-4 pb-4">
+        <div class="grid grid-cols-2 gap-4">
+            <div class="bg-white rounded-md filter drop-shadow">
+                <div class="px-4 py-2 border-b border-gray-200">
+                    <h3 class="font-bold">Ending Soon</h3>
+                </div>
+
+                <div class="p-4 space-y-4">
+                    {% include 'partials/ending_soon_list.j2' %}
+                </div>
+            </div>
+
+            <div class="bg-white rounded-md filter drop-shadow">
+                <div class="px-4 py-2 border-b border-gray-200">
+                    <h3 class="font-bold">Popular</h3>
+                </div>
+
+                <div class="p-4 space-y-4">
+                    {% for name in popular_names %}
+                        {% include 'partials/name.j2' %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

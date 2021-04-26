@@ -1,0 +1,31 @@
+{% for block in blocks %}
+    <div class="grid grid-cols-{{ '3' if show_miner else '2' }} gap-4 border-b border-gray-100 pb-4 items-center last:border-b-0 last:pb-0">
+        <div class="flex flex-row items-center">
+            <div class="rounded-sm mr-2 bg-gray-200 w-12 h-12 flex text-center flex flex-row items-center justify-center text-gray-400">
+                BK
+            </div>
+            <div class="ml-2">
+                <a class="text-purple-500" href="/blocks/{{ block.height }}">{{ block.height }}</a>
+                <p class="text-gray-300 text-sm">
+                    {{ block.time | time_ago }}
+                </p>
+            </div>
+        </div>
+        {% if show_miner %}
+            <div>
+                <p>
+                    <strong class="font-bold">Miner:</strong>
+                    <a href="/addrs/{{ block.coinbase.address }}" class="text-purple-500">{{ block.coinbase.address | middle_ellipsis }}</a>
+                </p>
+                <p>
+                    <a class="text-purple-500" href="/blocks/{{ block.height }}">
+                        {{ block.tx_count }} txns
+                    </a>
+                </p>
+            </div>
+        {% endif %}
+        <div class="bg-gray-200 text-gray-400 px-2 py-1 rounded-sm ml-auto">
+            {{ block.coinbase_value | as_hns }}
+        </div>
+    </div>
+{% endfor %}

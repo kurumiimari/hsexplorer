@@ -1,0 +1,26 @@
+{
+  "name": "ui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --progress --config webpack.config.js",
+    "watch": "webpack --progress --config webpack.config.js --watch"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.14.0",
+    "@babel/preset-env": "^7.14.1",
+    "@babel/preset-react": "^7.13.13",
+    "babel-loader": "^8.2.2",
+    "webpack": "^5.36.2",
+    "webpack-cli": "^4.7.0"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "redux": "^4.1.0"
+  }
+}

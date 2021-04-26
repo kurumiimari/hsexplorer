@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='overrides.css') }}" rel="stylesheet">
+    <title>BlockExplorer.com | {{ title }}</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
+    <link rel="manifest" href="/static/site.webmanifest">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+</head>
+<body class="bg-gray-100">
+<nav class="py-2 px-4 main-nav grid grid-cols-3 gap-4 bg-white filter drop-shadow-lg items-center">
+    <a class="main-nav__logo" href="/">
+        <img src="{{ url_for('static', filename='images/logo.svg') }}" />
+    </a>
+
+    <div class="text-center">
+        <a href="/">
+            <img src="{{ url_for('static', filename='images/handshake.svg') }}" class="ml-auto mr-auto" />
+        </a>
+    </div>
+
+    <div class="flex space-x-4 content-center justify-end">
+        <a href="/" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md">
+            Home
+        </a>
+
+        <a href="/blockchain" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md">
+            Blockchain
+        </a>
+
+        <a href="/domains" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md">
+            Domains
+        </a>
+    </div>
+</nav>
+<section class="relative">
+    <div class="hero-bg"></div>
+    <div class="absolute inset-0 pt-6 px-4 md:px-0">
+        <div class="max-w-5xl mx-auto pt-6">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,107 @@
+{% extends "layout.j2" %}
+
+{% block content %}
+    <h1 class="text-white text-4xl font-bold mb-4">{{ name.name | depunycode }}/</h1>
+
+    <div class="pt-4 pb-4">
+        <div class="bg-white p-4 rounded-md grid grid-cols-2 gap-4 mt-4 filter drop-shadow">
+            <div class="pr-4 grid grid-rows-2 border-r border-gray-200">
+                <div class="pb-2 border-b border-gray-200">
+                    <h2 class="text-gray-400 uppercase text-sm mb-2">Total Bids</h2>
+                    <p class="text-lg">{{ name.total_bids }}</p>
+                </div>
+                {% if name.status['status'] == 'BIDDING' %}
+                    <div class="pt-2">
+                        <h2 class="text-gray-400 uppercase text-sm mb-2">Time Left to Bid</h2>
+                        <p class="text-lg">{{ name.status['bidding_period_end'] - height }} blocks</p>
+                    </div>
+                {% elif name.status['status'] == 'REVEALING' %}
+                    <div class="pt-2">
+                        <h2 class="text-gray-400 uppercase text-sm mb-2">Time Left to Reveal</h2>
+                        <p class="text-lg">{{ name.status['reveal_period_end'] - height }} blocks</p>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="grid grid-rows-2">
+                <div class="pb-2 border-b border-gray-200">
+                    <h2 class="text-gray-400 uppercase text-sm mb-2">Unique Views</h2>
+                    <p class="text-lg">{{ name.views }}</p>
+                </div>
+                <div class="pt-2">
+                    <h2 class="text-gray-400 uppercase text-sm mb-2">Highest Lockup</h2>
+                    <p class="text-lg">{{ name.highest_lockup | as_hns }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pt-4 pb-4">
+        <div class="grid grid-cols-2 gap-4">
+            <div class="p-4">
+                <ul class="auction-stages pt-8">
+                    <li class="auction-stages__stage auction-stages__stage--active">Unreleased</li>
+                    <li class="auction-stages__stage auction-stages__stage--active">Released</li>
+                    <li class="auction-stages__stage auction-stages__stage--active {{ 'auction-stages__stage--current' if name.status['status'] == 'BIDDING' else '' }}">
+                        Auction Live
+                    </li>
+                    <li class="auction-stages__stage {{ 'auction-stages__stage--active auction-stages__stage--current' if name.status['status'] == 'REVEALING' else '' }}">
+                        Revealing
+                    </li>
+                    <li class="auction-stages__stage">Auction Over</li>
+                </ul>
+            </div>
+            <div class="p-4">
+                <div class="p-8 bg-gray-200 rounded-lg">
+                    <div class="text-center text-gray-500 mb-4">
+                        Use Bob wallet to place a bid.
+                    </div>
+                    <a href="https://bobwallet.io" target="_blank" class="text-white font-bold block p-4 text-center rounded-md main-cta-button">
+                        Download Bob
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pt-4 pb-4">
+        <div class="bg-white rounded-md filter drop-shadow">
+            <div class="px-4 py-2 border-b border-gray-200">
+                <h3 class="font-bold">Bid History</h3>
+            </div>
+            <div class="p-4 space-y-2">
+                {% for out in name.outputs %}
+                    {% if out.covenant_action == 'BID' %}
+                        <div class="flex flex-row items-center border-b border-gray-200 pb-2">
+                            <div class="flex-grow-0">
+                                <div class="bg-gray-200 p-2 rounded-sm">
+                                    BID
+                                </div>
+                            </div>
+                            <div class="ml-2 flex-grow-0">
+                                <div>
+                                    <a href="/txs/{{ out.tx_hash }}" class="text-purple-500">
+                                        {{ out.tx_hash | middle_ellipsis }}
+                                    </a>
+                                </div>
+                                <div class="text-gray-400">{{ out.tx.mtime | time_ago }}</div>
+                            </div>
+                            <div class="ml-auto text-right">
+                                {% if name.status['status'] == 'REVEALING' and out.corresponding_reveal %}
+                                    <div>{{ out.value | as_hns }}</div>
+                                    <div class="text-gray-400">
+                                        + {{ (out.value - out.corresponding_reveal.value) | as_hns }} added blind
+                                    </div>
+                                {% else %}
+                                    <div>{{ out.value | as_hns }}</div>
+                                    <div class="text-gray-400">hidden until reveal</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {{ bundle_root('names') }}
+{% endblock %}

@@ -1,0 +1,71 @@
+.hero-bg {
+    background-image: url("/static/images/hero-bg.png");
+    height: 240px;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.main-cta-button {
+    background: linear-gradient(90.64deg, #693DB1 1.75%, #3329A8 96.46%);
+}
+
+.auction-stages {
+}
+
+.auction-stages__stage {
+    position: relative;
+    display: block;
+    padding-left: 2.4rem;
+    font-weight: bold;
+    padding-top: 40px;
+    color: rgb(156, 163, 175);
+}
+
+.auction-stages__stage:before {
+    display: block;
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 3px;
+    width: 1.2rem;
+    height: 1.2rem;
+    border: 2px dashed rgb(156, 163, 175);
+    background-color: transparent;
+    border-radius: 100%;
+}
+
+.auction-stages__stage:after {
+    display: block;
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: calc(0.6rem - 2px);
+    height: 45px;
+    border-right: 2px dashed rgb(156, 163, 175);
+}
+
+.auction-stages__stage:last-child {
+    padding-bottom: 0;
+}
+
+.auction-stages__stage--active:before {
+    border: 2px solid #65e087;
+    background: #65e087;
+}
+
+.auction-stages__stage--active:after {
+    border-right: 2px solid #65e087;
+}
+
+.auction-stages__stage--current {
+    color: #65e087;
+}
+
+.auction-stages__stage:first-child {
+    padding-top: 0;
+}
+
+.auction-stages__stage:first-child:after {
+    display: none;
+}
