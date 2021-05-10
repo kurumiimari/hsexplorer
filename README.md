@@ -2,6 +2,8 @@
 
 A Handshake block explorer. The backend is written in Python/Flask, and frontend interactions are written in Javascript/React.
 
+A live beta version is available at [http://hsexplorer-prod.us-west-2.elasticbeanstalk.com/](http://hsexplorer-prod.us-west-2.elasticbeanstalk.com/). 
+
 ## Local Development
 
 You'll need the following things to run the dev server locally:
