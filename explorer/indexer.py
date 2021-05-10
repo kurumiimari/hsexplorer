@@ -62,7 +62,7 @@ def index_blocks():
                 new_height = height
 
             db.session.execute('SELECT refresh_popular_names(:min_height)', {
-                'min_height': new_height - protocol.network_main.bidding_period
+                'min_height': new_height - protocol.network_main.bidding_period - protocol.network_main.open_period
             })
             db.session.commit()
         except Exception as e:

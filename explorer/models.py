@@ -261,11 +261,11 @@ class Name(db.Model):
             .first()
 
         state['open_height'] = open_sc.tx.block.height
-        if block_height == state['open_height']:
+        if block_height <= state['open_height'] + protocol.network_main.open_period:
             state['status'] = 'OPENING'
             return state
 
-        bidding_period_end = state['open_height'] + protocol.network_main.bidding_period
+        bidding_period_end = state['open_height'] + protocol.network_main.open_period + protocol.network_main.bidding_period
         state['bidding_period_end'] = bidding_period_end
         if bidding_period_end > block_height:
             state['status'] = 'BIDDING'
@@ -293,7 +293,7 @@ class Name(db.Model):
     @classmethod
     def ending_soon(cls):
         # ending in 6 hours
-        lo = Block.max_height() - protocol.network_main.bidding_period
+        lo = Block.max_height() - protocol.network_main.bidding_period - protocol.network_main.open_period
         hi = lo + 36
         opens = db.session.query(Output.covenant_name_hash) \
             .filter(Output.block_height > lo) \

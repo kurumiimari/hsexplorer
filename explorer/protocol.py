@@ -23,7 +23,8 @@ class NetworkMain:
             'transfer_lockup': 288,
             'revocation_delay': 2016,
             'auction_maturity': 4176,
-            'blocks_per_day': 144
+            'blocks_per_day': 144,
+            'open_period': 37,
         }
 
 
