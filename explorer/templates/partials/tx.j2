@@ -1,5 +1,5 @@
-<div class="flex flex-row gap-4">
-    <div class="w-50 flex-1">
+<div class="md:flex flex-row gap-4">
+    <div class="w-100 md:w-50 flex-1">
         <h4 class="uppercase mb-2 font-bold text-gray-400">Inputs</h4>
 
         <div class="space-y-4">
@@ -21,10 +21,10 @@
             {% endfor %}
         </div>
     </div>
-    <div class="flex-initial pt-10">
+    <div class="hidden md:block flex-initial pt-10">
         <img src="{{ url_for('static', filename='images/caret-right.svg') }}">
     </div>
-    <div class="w-50 flex-1">
+    <div class="mt-4 md:mt-0 w-100 md:w-50 flex-1">
         <h4 class="uppercase mb-2 font-bold text-gray-400">Outputs</h4>
 
         <div class="space-y-4">

@@ -11,9 +11,9 @@
     </form>
 
     <div class="pt-4 pb-4">
-        <div class="bg-white p-4 rounded-md grid grid-cols-3 gap-4 mt-4 filter drop-shadow">
-            <div class="pr-4 grid grid-rows-2 border-r border-gray-200">
-                <div class="pb-2 border-b border-gray-200">
+        <div class="bg-white p-4 rounded-md grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 filter drop-shadow">
+            <div class="md:pr-4 grid grid-rows-2 md:border-r border-gray-200">
+                <div class="pb-2 md:border-b border-gray-200">
                     <h2 class="text-gray-400 uppercase text-sm mb-2">HNS Price</h2>
                     <p class="text-lg">${{ latest_price.price_usd / 1000000 }}</p>
                 </div>
@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="grid grid-rows-2">
-                <div class="pb-2 border-b border-gray-200">
+                <div class="pb-2 md:border-b border-gray-200">
                     <h2 class="text-gray-400 uppercase text-sm mb-2">Opened Names</h2>
                     <p class="text-lg">{{ entity_counts.opened_names | pretty_number }}</p>
                 </div>
@@ -32,8 +32,8 @@
                     <p class="text-lg">{{ mempool_count | pretty_number }} TXNS</p>
                 </div>
             </div>
-            <div class="pl-4 grid grid-rows-2 border-l border-gray-200">
-                <div class="pb-2 border-b border-gray-200">
+            <div class="md:pl-4 grid grid-rows-2 md:border-l border-gray-200">
+                <div class="pb-2 md:border-b border-gray-200">
                     <h2 class="text-gray-400 uppercase text-sm mb-2">Network Hashrate</h2>
                     <p class="text-lg">{{ info.hashrate | si_units }}H/s</p>
                 </div>
@@ -46,16 +46,16 @@
     </div>
 
     <div class="pt-4 pb-4">
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="bg-white rounded-md filter drop-shadow">
                 <div class="px-4 py-2 border-b border-gray-200 flex flex-row">
                     <h3 class="font-bold">Recent Transactions</h3>
                     <a href="/txs" class="ml-auto uppercase text-purple-500">View All</a>
                 </div>
-                <div class="p-4 space-y-4 max-h-96 overflow-scroll">
+                <div class="p-4 space-y-4 md:max-h-96 md:overflow-scroll">
                     {% for tx in txs %}
                         <div class="flex flex-row border-b border-gray-100 pb-4 items-center last:border-b-0 last:pb-0">
-                            <div class="rounded-sm mr-2 bg-gray-200 w-12 h-12 flex text-center flex flex-row items-center justify-center text-gray-400">
+                            <div class="hidden md:flex rounded-sm mr-2 bg-gray-200 w-12 h-12 flex text-center flex flex-row items-center justify-center text-gray-400">
                                 TX
                             </div>
                             <div>
@@ -73,7 +73,7 @@
                 <div class="px-4 py-2 border-b border-gray-200">
                     <h3 class="font-bold">Ending Soon</h3>
                 </div>
-                <div class="p-4 space-y-4 max-h-96 overflow-scroll">
+                <div class="p-4 space-y-4 md:max-h-96 md:overflow-scroll">
                     {% with show_type=True %}
                         {% include 'partials/ending_soon_list.j2' %}
                     {% endwith %}

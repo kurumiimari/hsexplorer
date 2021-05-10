@@ -4,9 +4,9 @@
     <h1 class="text-white text-4xl font-bold mb-4">{{ name.name | depunycode }}/</h1>
 
     <div class="pt-4 pb-4">
-        <div class="bg-white p-4 rounded-md grid grid-cols-2 gap-4 mt-4 filter drop-shadow">
-            <div class="pr-4 grid grid-rows-2 border-r border-gray-200">
-                <div class="pb-2 border-b border-gray-200">
+        <div class="bg-white p-4 rounded-md grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 filter drop-shadow">
+            <div class="md:pr-4 grid grid-rows-2 md:border-r border-gray-200">
+                <div class="md:pb-2 md:border-b border-gray-200">
                     <h2 class="text-gray-400 uppercase text-sm mb-2">Total Bids</h2>
                     <p class="text-lg">{{ name.total_bids }}</p>
                 </div>
@@ -23,7 +23,7 @@
                 {% endif %}
             </div>
             <div class="grid grid-rows-2">
-                <div class="pb-2 border-b border-gray-200">
+                <div class="md:pb-2 md:border-b border-gray-200">
                     <h2 class="text-gray-400 uppercase text-sm mb-2">Unique Views</h2>
                     <p class="text-lg">{{ name.views }}</p>
                 </div>
@@ -36,7 +36,7 @@
     </div>
 
     <div class="pt-4 pb-4">
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="p-4">
                 <ul class="auction-stages pt-8">
                     <li class="auction-stages__stage auction-stages__stage--active">Unreleased</li>
@@ -50,7 +50,7 @@
                     <li class="auction-stages__stage">Auction Over</li>
                 </ul>
             </div>
-            <div class="p-4">
+            <div class="md:p-4">
                 <div class="p-8 bg-gray-200 rounded-lg">
                     <div class="text-center text-gray-500 mb-4">
                         Use Bob wallet to place a bid.
@@ -72,7 +72,7 @@
                 {% for out in name.outputs %}
                     {% if out.covenant_action == 'BID' %}
                         <div class="flex flex-row items-center border-b border-gray-200 pb-2">
-                            <div class="flex-grow-0">
+                            <div class="hidden md:block flex-grow-0">
                                 <div class="bg-gray-200 p-2 rounded-sm">
                                     BID
                                 </div>
