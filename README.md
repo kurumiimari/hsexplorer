@@ -65,7 +65,7 @@ This is a multi-page app where the server generates most pages. However, to add 
 To create a new JS bundle, do the following:
 
 1. Create a new entrypoint in `webpack.config.js` that points to an entrypoint file in `ui/entries`.
-2. On the page that you want the entrypoint to appear, use the `{{ bundle_root('<bundle_name>') }} helper to include both your script and a `div` element to render your components into.
+2. On the page that you want the entrypoint to appear, use the `{{ bundle_root('<bundle_name>') }}` helper to include both your script and a `div` element to render your components into.
 3. Implement your entrypoint to call `ReactDOM.render()` with a target element of id `bundle-root-<bundle_name>`.
 
 To view your changes live, run `npm run watch` to automatically regenerate your JS bundles on save. You'll need to manually refresh whatever page you are on to see them.
