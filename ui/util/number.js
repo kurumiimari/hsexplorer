@@ -1,4 +1,5 @@
 import BigNumber from "bignumber.js";
+import moment from "moment";
 
 export const fromDollaryDoos = (raw, decimals = 2) => {
   if (isNaN(raw)) return '';
@@ -22,4 +23,10 @@ export const formatNumber = (num)  => {
   }
 
   return realNum;
+};
+
+const targetSpacing = 10 * 60;
+
+export const heightToMoment = (blockHeight) => {
+  return moment(1583164278000).add(blockHeight * (targetSpacing * 1000));
 };
