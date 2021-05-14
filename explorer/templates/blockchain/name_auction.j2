@@ -50,12 +50,12 @@
                     <li class="auction-stages__stage">Auction Over</li>
                 </ul>
             </div>
-            <div class="md:p-4">
+            <div class="md:p-4 cursor-default" id="replaceBy-bundle-root-bid-box">
                 <div class="p-8 bg-gray-200 rounded-lg">
                     <div class="text-center text-gray-500 mb-4">
                         Use Bob wallet to place a bid.
                     </div>
-                    <a href="https://bobwallet.io" target="_blank" class="text-white font-bold block p-4 text-center rounded-md main-cta-button">
+                    <a href="https://bobwallet.io" target="_blank" class="text-white font-bold block p-2 text-center rounded-md main-cta-button flex flex-row justify-center items-center">
                         Download Bob
                     </a>
                 </div>
@@ -78,7 +78,7 @@
                                 </div>
                             </div>
                             <div class="ml-2 flex-grow-0">
-                                <div>
+                                <div data-tx-hash="{{out.tx_hash}}">
                                     <a href="/txs/{{ out.tx_hash }}" class="text-purple-500">
                                         {{ out.tx_hash | middle_ellipsis }}
                                     </a>
@@ -102,6 +102,5 @@
             </div>
         </div>
     </div>
-
-    {{ bundle_root('names') }}
+    {{ bundle_root('name-auction') }}
 {% endblock %}

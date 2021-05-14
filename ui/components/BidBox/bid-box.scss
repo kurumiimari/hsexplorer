@@ -1,0 +1,22 @@
+@import "util/variables";
+
+#bundle-root-bid-box {
+  display: none;
+}
+
+.bid-box {
+  &__bidding-panel {
+
+    &__input-labels {
+      font-weight: 500;
+    }
+
+    &__input-label {
+
+    }
+
+    &__spendable {
+
+    }
+  }
+}

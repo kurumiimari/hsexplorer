@@ -141,3 +141,5 @@ cython_debug/
 
 node_modules
 explorer/static/bundles
+.idea
+.DS_Store
