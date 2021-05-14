@@ -9,9 +9,9 @@ import OpeningPanel from "./OpeningPanel";
 
 export default function BidBox(props) {
   const name = window.location.pathname.split('/')[2];
-  const nameInfo = useNameInfo(name);
+  const [nameInfo, refreshNameInfo] = useNameInfo(name);
   const [wallet, setWallet] = useWallet();
-  const pendingOpen = usePendingOpen(wallet, name);
+  const [pendingOpen, refreshPendingOpen] = usePendingOpen(wallet, name);
 
   if (typeof window.bob3 === 'undefined') {
     return <DownloadBob />;
@@ -21,6 +21,12 @@ export default function BidBox(props) {
     return <ConnectToBob setWallet={setWallet} />
   }
 
+  wallet.onNewBlock(async (block) => {
+    console.log(block);
+    refreshPendingOpen();
+    refreshNameInfo();
+  });
+
   // Name is not opened
   if (!nameInfo?.info) {
     return (
@@ -29,6 +35,7 @@ export default function BidBox(props) {
         nameInfo={nameInfo}
         wallet={wallet}
         opening={!!pendingOpen}
+        refreshPendingOpen={refreshPendingOpen}
       />
     );
   }
@@ -39,6 +46,7 @@ export default function BidBox(props) {
         name={name}
         nameInfo={nameInfo}
         wallet={wallet}
+        refreshPendingOpen={refreshPendingOpen}
         opening
       />
     );

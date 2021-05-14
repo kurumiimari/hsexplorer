@@ -12,6 +12,7 @@ export default function OpeningPanel(props) {
     setLoading(true);
     try {
       await props.wallet.sendOpen(props.name);
+      await props.refreshPendingOpen();
     } catch (e) {
       setError(e.message);
     }
@@ -52,6 +53,7 @@ export default function OpeningPanel(props) {
 OpeningPanel.propTypes = {
   name: PropTypes.string.isRequired,
   wallet: PropTypes.object.isRequired,
+  refreshPendingOpen: PropTypes.func.isRequired,
   nameInfo: PropTypes.object,
   opening: PropTypes.bool,
 };

@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useCallback} from 'react';
 import {getTXAction, getTXNameHash} from "./tx";
 
 export function useWallet() {
@@ -66,5 +66,24 @@ export function usePendingOpen(wallet, name) {
     })();
   }, [wallet]);
 
-  return tx;
+  const refresh = useCallback(async () => {
+    if (!wallet) {
+      return;
+    }
+
+    const targetNameHash = await wallet.hashName(name);
+    const pendingTXs = await wallet.getPending();
+
+    for (let tx of pendingTXs) {
+      const nameHash = getTXNameHash(tx);
+      const action = getTXAction(tx);
+
+      if (action === 'OPEN' && nameHash === targetNameHash) {
+        setTx(tx);
+        return;
+      }
+    }
+  }, [wallet]);
+
+  return [tx, refresh];
 }
