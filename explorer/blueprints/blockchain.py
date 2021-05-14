@@ -148,7 +148,6 @@ def block_by_hash_page(block_hash):
 
 
 @blockchain.route('/addrs/<address>')
-@blockchain.route('/addresses/<address>')
 @cacheable_path(invalidate_on_block)
 def address_page(address):
     try:
@@ -260,3 +259,23 @@ def block_page(block):
         per_page=per_page,
         page=page
     )
+
+
+@blockchain.route('/address/<address>')
+def redirect_address(address):
+    return redirect('/addrs/{}'.format(address), code=301)
+
+
+@blockchain.route('/tx/<hash>')
+def redirect_transactions(h):
+    return redirect('/tx/{}'.format(h), code=301)
+
+
+@blockchain.route('/block/<int:height>')
+def redirect_blocks(height):
+    return redirect('/blocks/{}'.format(height), code=301)
+
+
+@blockchain.route('/name/<name>')
+def redirect_name(name):
+    return redirect('/names/{}'.format(name), code=301)
