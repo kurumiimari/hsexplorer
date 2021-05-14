@@ -117,3 +117,21 @@ export function useBidsByName(wallet, name) {
 
   return [bids, refresh];
 }
+
+export function useRevealByName(wallet, name) {
+  const [reveal, setReveal] = useState(null);
+
+  const refresh = useCallback(async () => {
+    setReveal(null);
+
+    if (!wallet) {
+      return;
+    }
+
+    setReveal(await wallet.createReveal(name));
+  }, [wallet]);
+
+  useEffect(refresh, [wallet]);
+
+  return [reveal, refresh];
+}

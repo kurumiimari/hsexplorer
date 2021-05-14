@@ -4,7 +4,7 @@ import {useWalletBalance} from "../../util/bob3";
 import {formatNumber, fromDollaryDoos} from "../../util/number";
 import Spinner from "../Spinner";
 
-export default function BiddingPanel(props) {
+export default function BidPanel(props) {
   const [bid, setBid] = useState('');
   const [blind, setBlind] = useState();
   const [isLoading, setLoading] = useState(false);
@@ -22,7 +22,7 @@ export default function BiddingPanel(props) {
       setError(e.message);
     }
     setLoading(false);
-  }, [bid, blind]);
+  }, [bid, blind, props.name, props.wallet]);
 
   const setAmount = useCallback(async (e, update) => {
     if (e.target.value === '') return update('');
@@ -84,7 +84,7 @@ export default function BiddingPanel(props) {
   );
 }
 
-BiddingPanel.propTypes = {
+BidPanel.propTypes = {
   name: PropTypes.string.isRequired,
   wallet: PropTypes.object.isRequired,
   bidding: PropTypes.bool,

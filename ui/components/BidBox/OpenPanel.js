@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Spinner from "../Spinner";
 import moment from 'moment';
 
-export default function OpeningPanel(props) {
+export default function OpenPanel(props) {
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const {openPeriodEnd, hoursUntilBidding} = props.nameInfo?.info?.stats || {};
@@ -17,7 +17,7 @@ export default function OpeningPanel(props) {
       setError(e.message);
     }
     setLoading(false);
-  }, []);
+  }, [props.name, props.wallet]);
 
   return (
     <div className="p-8 bg-gray-200 rounded-lg bid-box">
@@ -50,7 +50,7 @@ export default function OpeningPanel(props) {
   );
 }
 
-OpeningPanel.propTypes = {
+OpenPanel.propTypes = {
   name: PropTypes.string.isRequired,
   wallet: PropTypes.object,
   refreshPendingOpen: PropTypes.func.isRequired,
