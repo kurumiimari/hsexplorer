@@ -5,17 +5,19 @@ import {formatNumber, fromDollaryDoos} from "../../util/number";
 import Spinner from "../Spinner";
 
 export default function BiddingPanel(props) {
-  const [bid, setBid] = useState(0);
-  const [blind, setBlind] = useState(0);
+  const [bid, setBid] = useState('');
+  const [blind, setBlind] = useState();
   const [isLoading, setLoading] = useState(false);
-  const balance = useWalletBalance(props.wallet);
+  const [balance] = useWalletBalance(props.wallet);
   const [error, setError] = useState('');
-
 
   const placeBid = useCallback(async () => {
     setLoading(true);
     try {
-      await props.wallet.sendBid(props.name, bid, blind + bid);
+      await props.wallet.sendBid(props.name, bid, (blind || 0) + bid);
+      setBid('');
+      setBlind('');
+      props.refreshPendingBid();
     } catch (e) {
       setError(e.message);
     }
@@ -42,6 +44,7 @@ export default function BiddingPanel(props) {
           className="py-2 px-4 mt-2 mb-4 border border-transparent focus:outline-none shadow-md rounded-lg"
           type="number"
           onChange={e => setAmount(e, setBid)}
+          disabled={props.bidding}
           value={bid}
         />
       </div>
@@ -55,12 +58,14 @@ export default function BiddingPanel(props) {
           className="py-2 px-4 mt-2 mb-4 w-full border border-transparent focus:outline-none shadow-md rounded-lg"
           type="number"
           onChange={e => setAmount(e, setBlind)}
+          disabled={props.bidding}
           value={blind}
         />
       </div>
       {error && <div className="text-sm text-red text-center w-full mb-2">{error}</div>}
       <button
         className="text-white font-bold block p-2 text-center rounded-md w-full main-cta-button inline-flex flex-row justify-center items-center"
+        disabled={props.bidding || bid === '' || isLoading}
         onClick={placeBid}
       >
         {
@@ -72,7 +77,7 @@ export default function BiddingPanel(props) {
                 height={32}
               />
             )
-            : 'Place bid'
+            : props.bidding ? 'Placing bid...' : 'Place bid'
         }
       </button>
     </div>
@@ -82,4 +87,6 @@ export default function BiddingPanel(props) {
 BiddingPanel.propTypes = {
   name: PropTypes.string.isRequired,
   wallet: PropTypes.object.isRequired,
+  bidding: PropTypes.bool,
+  refreshPendingBid: PropTypes.func.isRequired,
 };

@@ -32,7 +32,7 @@ export default function OpeningPanel(props) {
       <button
         className="text-white font-bold block p-2 text-center rounded-md w-full main-cta-button inline-flex flex-row justify-center items-center"
         onClick={openBid}
-        disabled={props.opening}
+        disabled={props.opening || isLoading}
       >
         {
           isLoading
@@ -52,7 +52,7 @@ export default function OpeningPanel(props) {
 
 OpeningPanel.propTypes = {
   name: PropTypes.string.isRequired,
-  wallet: PropTypes.object.isRequired,
+  wallet: PropTypes.object,
   refreshPendingOpen: PropTypes.func.isRequired,
   nameInfo: PropTypes.object,
   opening: PropTypes.bool,

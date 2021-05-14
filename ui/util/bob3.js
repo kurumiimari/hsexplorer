@@ -24,55 +24,36 @@ export function useWallet() {
 export function useWalletBalance(wallet) {
   const [balance, setBalance] = useState(null);
 
-  useEffect(() => {
-    (async function initBalance() {
-      if (!wallet) {
-        return;
-      }
+  const refresh = useCallback(async () => {
+    if (!wallet) {
+      return;
+    }
 
-      setBalance(await wallet.getBalance());
-    })();
+    setBalance(await wallet.getBalance());
   }, [wallet]);
 
+  useEffect(refresh, [wallet]);
+
   if (!balance) {
-    return 0;
+    return [0, refresh];
   }
 
-  return balance.unconfirmed - balance.lockedUnconfirmed;
+  return [balance.unconfirmed - balance.lockedUnconfirmed, refresh];
 }
 
 export function usePendingOpen(wallet, name) {
   const [tx, setTx] = useState(null);
 
-  useEffect(() => {
-    (async function initPendingOpen() {
-      if (!wallet) {
-        return;
-      }
-
-      const targetNameHash = await wallet.hashName(name);
-      const pendingTXs = await wallet.getPending();
-
-      for (let tx of pendingTXs) {
-        const nameHash = getTXNameHash(tx);
-        const action = getTXAction(tx);
-
-        if (action === 'OPEN' && nameHash === targetNameHash) {
-          setTx(tx);
-          return;
-        }
-      }
-
-    })();
-  }, [wallet]);
-
   const refresh = useCallback(async () => {
+    setTx(null);
+
     if (!wallet) {
       return;
     }
 
     const targetNameHash = await wallet.hashName(name);
     const pendingTXs = await wallet.getPending();
+
 
     for (let tx of pendingTXs) {
       const nameHash = getTXNameHash(tx);
@@ -85,5 +66,54 @@ export function usePendingOpen(wallet, name) {
     }
   }, [wallet]);
 
+  useEffect(refresh, [wallet]);
+
   return [tx, refresh];
+}
+
+export function usePendingBid(wallet, name) {
+  const [tx, setTx] = useState(null);
+
+  const refresh = useCallback(async () => {
+    setTx(null);
+
+    if (!wallet) {
+      return;
+    }
+
+    const targetNameHash = await wallet.hashName(name);
+    const pendingTXs = await wallet.getPending();
+
+    for (let tx of pendingTXs) {
+      const nameHash = getTXNameHash(tx);
+      const action = getTXAction(tx);
+
+      if (action === 'BID' && nameHash === targetNameHash) {
+        setTx(tx);
+        return;
+      }
+    }
+  }, [wallet]);
+
+  useEffect(refresh, [wallet]);
+
+  return [tx, refresh];
+}
+
+export function useBidsByName(wallet, name) {
+  const [bids, setBids] = useState([]);
+
+  const refresh = useCallback(async () => {
+    setBids([]);
+
+    if (!wallet) {
+      return;
+    }
+
+    setBids(await wallet.getBidsByName(name));
+  }, [wallet]);
+
+  useEffect(refresh, [wallet]);
+
+  return [bids, refresh];
 }

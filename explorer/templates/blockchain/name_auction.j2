@@ -60,7 +60,6 @@
                     </a>
                 </div>
             </div>
-            {{ bundle_root('bid-box') }}
         </div>
     </div>
 
@@ -79,7 +78,7 @@
                                 </div>
                             </div>
                             <div class="ml-2 flex-grow-0">
-                                <div>
+                                <div data-tx-hash="{{out.tx_hash}}">
                                     <a href="/txs/{{ out.tx_hash }}" class="text-purple-500">
                                         {{ out.tx_hash | middle_ellipsis }}
                                     </a>
@@ -103,6 +102,5 @@
             </div>
         </div>
     </div>
-
-    {{ bundle_root('names') }}
+    {{ bundle_root('name-auction') }}
 {% endblock %}

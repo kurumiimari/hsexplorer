@@ -1,35 +1,45 @@
 import React, {useCallback} from "react";
 import "./bid-box.scss";
 import DownloadBob from "./DownloadBob";
-import {usePendingOpen, useWallet} from "../../util/bob3";
+import {useBidsByName, usePendingBid, usePendingOpen, useWallet} from "../../util/bob3";
 import {useNameInfo} from "../../util/5pi";
 import ConnectToBob from "./ConnectToBob";
 import BiddingPanel from "./BiddingPanel";
 import OpeningPanel from "./OpeningPanel";
+import FindOwnBids from "../FindOwnBids";
 
 export default function BidBox(props) {
   const name = window.location.pathname.split('/')[2];
   const [nameInfo, refreshNameInfo] = useNameInfo(name);
   const [wallet, setWallet] = useWallet();
   const [pendingOpen, refreshPendingOpen] = usePendingOpen(wallet, name);
+  const [pendingBid, refreshPendingBid] = usePendingBid(wallet, name);
 
-  if (typeof window.bob3 === 'undefined') {
-    return <DownloadBob />;
-  }
-
-  if (!wallet) {
-    return <ConnectToBob setWallet={setWallet} />
-  }
-
-  wallet.onNewBlock(async (block) => {
-    console.log(block);
+  wallet?.onNewBlock(async (block) => {
     refreshPendingOpen();
+    refreshPendingBid();
     refreshNameInfo();
   });
 
-  // Name is not opened
-  if (!nameInfo?.info) {
-    return (
+  wallet?.onDisconnect(async () => {
+    setWallet();
+    refreshPendingOpen();
+    refreshPendingBid();
+    refreshNameInfo();
+  });
+
+  let child = <DownloadBob />;
+
+  if (typeof window.bob3 === 'undefined') {
+    child = (
+      <DownloadBob />
+    );
+  } else if (!wallet) {
+    child = (
+      <ConnectToBob setWallet={setWallet} />
+    );
+  } else if (!nameInfo?.info) {
+    child = (
       <OpeningPanel
         name={name}
         nameInfo={nameInfo}
@@ -38,10 +48,8 @@ export default function BidBox(props) {
         refreshPendingOpen={refreshPendingOpen}
       />
     );
-  }
-
-  if (nameInfo?.info?.state === 'OPENING') {
-    return (
+  } else if (nameInfo?.info?.state === 'OPENING') {
+    child = (
       <OpeningPanel
         name={name}
         nameInfo={nameInfo}
@@ -50,15 +58,23 @@ export default function BidBox(props) {
         opening
       />
     );
+  } else if (nameInfo?.info?.state === 'BIDDING') {
+    child = (
+      <BiddingPanel
+        name={name}
+        wallet={wallet}
+        bidding={!!pendingBid}
+        refreshPendingBid={refreshPendingBid}
+      />
+    );
+  } else if (nameInfo?.info?.state === 'REVEAL') {
+
   }
 
-  if (nameInfo?.info?.state === 'BIDDING') {
-    return <BiddingPanel name={name} wallet={wallet} />;
-  }
-
-  if (nameInfo?.info?.state === 'REVEAL') {
-
-  }
-
-  return <DownloadBob />;
+  return (
+    <>
+      {child}
+      <FindOwnBids wallet={wallet}/>
+    </>
+  );
 }

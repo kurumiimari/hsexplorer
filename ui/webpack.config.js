@@ -7,7 +7,7 @@ module.exports = {
   mode: isProd ? 'production' : 'development',
   entry: {
     names: './entries/names.js',
-    'bid-box': './entries/bid-box.js',
+    'name-auction': './entries/name-auction.js',
   },
   output: {
     filename: isProd ? '[name].[contenthash].bundle.js' : '[name].bundle.js',
