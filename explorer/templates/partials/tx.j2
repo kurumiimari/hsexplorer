@@ -54,9 +54,10 @@
                                 RDM
                             {% elif out.covenant_action == 'UPDATE' %}
                                 UPD
+                            {% elif out.covenant_action == 'CLAIM' %}
+                                CLM
                             {% endif %}
                         </div>
-                        {%  print(out) %}
                         <a href="/names/{{ out.name.name }}" class="text-purple-500">
                             {{ out.name.name | depunycode }}
                         </a>
