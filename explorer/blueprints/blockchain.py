@@ -268,7 +268,7 @@ def redirect_address(address):
 
 @blockchain.route('/tx/<tx_hash>')
 def redirect_transactions(tx_hash):
-    return redirect('/tx/{}'.format(tx_hash), code=301)
+    return redirect('/txs/{}'.format(tx_hash), code=301)
 
 
 @blockchain.route('/block/<int:height>')
