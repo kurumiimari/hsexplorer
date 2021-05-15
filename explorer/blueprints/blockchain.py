@@ -1,6 +1,6 @@
 import re
 
-from flask import Blueprint, render_template, request, redirect
+from flask import Blueprint, render_template, request, redirect, abort
 
 from explorer.cache import cacheable_path
 from explorer.models import Block, Tx, Name, EntityCounts, PopularNames, PriceTick, Address, MempoolTx, InfoTick
@@ -124,7 +124,7 @@ def mempool_page():
 def tx_page(tx_hash):
     tx = Tx.find_by_hash(tx_hash)
     if tx is None:
-        return None, 404
+        abort(404, description='TX not found.')
 
     return render_template(
         'blockchain/tx.j2',
@@ -158,11 +158,11 @@ def address_page(address):
     per_page = 50
     addr_obj = Address.find_by_address(address)
     if addr_obj is None:
-        return None, 404
+        abort(404, description='Address not found.')
 
     txs, page_count, result_count = Tx.find_by_address(address, page, per_page)
     if result_count == 0:
-        return None, 404
+        abort(404, description='Address not found.')
 
     return render_template(
         'blockchain/address.j2',
@@ -180,11 +180,11 @@ def address_page(address):
 @cacheable_path(invalidate_on_block)
 def name_page(name):
     if not valid_name(name):
-        return None, 404
+        abort(404, description='Name not found.')
 
     name_info = Name.find_by_name(name, inc_views=True)
     if name_info is None:
-        return None, 404
+        abort(404, description='Name not found.')
 
     block_height = Block.max_height()
 
@@ -240,7 +240,7 @@ def search_page():
 
 def block_page(block):
     if block is None:
-        return None, 404
+        return abort(404, description='Block not found.')
 
     try:
         page = int(request.args.get('page', 1))
