@@ -1,7 +1,7 @@
 import binascii
 
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import func
+from sqlalchemy import func, distinct
 from sqlalchemy.dialects.postgresql import JSONB
 
 from explorer import protocol
@@ -361,11 +361,10 @@ class Address(db.Model):
 
     @property
     def total_spent(self):
-        results = db.session.query(func.coalesce(func.sum(Output.value), 0)) \
-            .join(Input, Input.prevout_address == Output.address, isouter=True) \
-            .filter(Output.address == self.address) \
-            .filter(Output.covenant_action != 'BID') \
-            .filter(Input.prevout_address != None) \
+        results = db.session.query(func.coalesce(func.sum(distinct(Output.value)), 0)) \
+            .select_from(Input) \
+            .join(Output, Output.address == Input.prevout_address) \
+            .filter(Input.prevout_address == self.address) \
             .first()
 
         return results[0]
