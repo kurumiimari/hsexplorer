@@ -262,7 +262,7 @@ class Name(db.Model):
             .first()
 
         if open_sc is None:
-            claim_sc = db.session.quuery(Output) \
+            claim_sc = db.session.query(Output) \
                 .filter(Output.covenant_action == 'CLAIM') \
                 .filter(Output.covenant_name_hash == self.hash) \
                 .order_by(Output.id.desc()) \
