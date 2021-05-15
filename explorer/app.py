@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask
+from flask import Flask, render_template
 
 from explorer.blueprints.blockchain import blockchain
 from explorer.blueprints.management import management
@@ -31,6 +31,10 @@ def create_app():
         if not app.config['PERFORM_CACHING']:
             response.cache_control.no_store = True
         return response
+
+    @app.errorhandler(404)
+    def page_not_found(e):
+        return render_template('404.j2'), 404
 
     db.init_app(app)
     redis_client.init_app(app)
