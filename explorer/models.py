@@ -254,18 +254,35 @@ class Name(db.Model):
     def status(self):
         state = {}
         block_height = Block.max_height()
+
         open_sc = db.session.query(Output) \
             .filter(Output.covenant_action == 'OPEN') \
             .filter(Output.covenant_name_hash == self.hash) \
             .order_by(Output.id.desc()) \
             .first()
 
+        if open_sc is None:
+            claim_sc = db.session.quuery(Output) \
+                .filter(Output.covenant_action == 'CLAIM') \
+                .filter(Output.covenant_name_hash == self.hash) \
+                .order_by(Output.id.desc()) \
+                .first()
+
+            if claim_sc is None:
+                state['status'] = 'UNKNOWN'
+            else:
+                state['status'] = 'CLOSED'
+
+            return state
+
         state['open_height'] = open_sc.tx.block.height
         if block_height <= state['open_height'] + protocol.network_main.open_period:
             state['status'] = 'OPENING'
             return state
 
-        bidding_period_end = state['open_height'] + protocol.network_main.open_period + protocol.network_main.bidding_period
+        bidding_period_end = state['open_height'] + \
+                             protocol.network_main.open_period + \
+                             protocol.network_main.bidding_period
         state['bidding_period_end'] = bidding_period_end
         if bidding_period_end > block_height:
             state['status'] = 'BIDDING'
