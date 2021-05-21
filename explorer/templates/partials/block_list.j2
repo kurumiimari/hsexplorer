@@ -1,12 +1,12 @@
 {% for block in blocks %}
-    <div class="grid grid-cols-2 md:grid-cols-{{ '3' if show_miner else '2' }} gap-4 border-b border-gray-100 pb-4 items-center last:border-b-0 last:pb-0">
+    <div class="grid grid-cols-2 md:grid-cols-{{ '3' if show_miner else '2' }} gap-4 border-b border-gray-100 pb-4 items-start last:border-b-0 last:pb-0">
         <div class="flex flex-row items-center">
-            <div class="hidden md:flex rounded-sm mr-2 bg-gray-200 w-12 h-12 flex text-center flex flex-row items-center justify-center text-gray-400">
+            <div class="hidden md:flex rounded-sm mr-2 bg-gray-100 w-10 h-10 text-sm flex text-center flex flex-row flex-shrink-0 items-center justify-center text-gray-800 font-semibold">
                 BK
             </div>
             <div class="ml-2">
-                <a class="text-purple-500" href="/blocks/{{ block.height }}">{{ block.height }}</a>
-                <p class="text-gray-300 text-sm">
+                <a class="text-purple-500 text-sm" href="/blocks/{{ block.height }}">{{ block.height }}</a>
+                <p class="text-gray-300 text-xs">
                     {{ block.time | time_ago }}
                 </p>
             </div>
@@ -24,7 +24,7 @@
                 </p>
             </div>
         {% endif %}
-        <div class="bg-gray-200 text-gray-400 px-2 py-1 rounded-sm ml-auto">
+        <div class="bg-gray-100 text-gray-400 px-2 py-1 ml-auto text-xs">
             {{ block.coinbase_value | as_hns }}
         </div>
     </div>

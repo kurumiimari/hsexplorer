@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="{{ url_for('static', filename='overrides.css') }}" rel="stylesheet">
     <title>BlockExplorer.com | {{ title }}</title>
 
@@ -14,7 +16,7 @@
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 cursor-default">
 <nav class="py-2 px-4 main-nav grid grid-cols-2 md:grid-cols-3 gap-4 bg-white filter drop-shadow-lg items-center">
     <a class="hidden md:block main-nav__logo" href="/">
         <img src="{{ url_for('static', filename='images/logo.svg') }}" />
@@ -42,7 +44,7 @@
 </nav>
 <section class="relative">
     <div class="hero-bg"></div>
-    <div class="absolute inset-0 pt-6 px-4 md:px-0">
+    <div class="absolute inset-0 pt-6 px-4">
         <div class="max-w-5xl mx-auto pt-6">
             {% block content %}{% endblock %}
         </div>
