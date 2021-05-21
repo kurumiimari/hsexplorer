@@ -2,6 +2,11 @@ body {
     font-family: Open Sans, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";;
 }
 
+.text-reg {
+    font-size: .9375rem;
+    line-height: 1.3125;
+}
+
 .hero-bg {
     background-image: url("/static/images/hero-bg.png");
     height: 240px;
@@ -21,15 +26,17 @@ body {
 }
 
 .auction-stages {
+
 }
 
 .auction-stages__stage {
     position: relative;
     display: block;
     padding-left: 2.4rem;
-    font-weight: bold;
     padding-top: 40px;
-    color: rgb(156, 163, 175);
+    color: rgb(209, 213, 219);
+    font-size: 1rem;
+    font-weight: 600;
 }
 
 .auction-stages__stage:before {
@@ -40,7 +47,7 @@ body {
     bottom: 3px;
     width: 1.2rem;
     height: 1.2rem;
-    border: 2px dashed rgb(156, 163, 175);
+    border: 2px dashed rgb(209, 213, 219);
     background-color: transparent;
     border-radius: 100%;
 }
@@ -52,7 +59,7 @@ body {
     top: -3px;
     left: calc(0.6rem - 2px);
     height: 45px;
-    border-right: 2px dashed rgb(156, 163, 175);
+    border-right: 2px dashed rgb(209, 213, 219);
 }
 
 .auction-stages__stage:last-child {

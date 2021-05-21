@@ -1,34 +1,34 @@
 {% extends "layout.j2" %}
 
 {% block content %}
-    <h1 class="text-white text-4xl font-bold mb-4">{{ name.name | depunycode }}/</h1>
+    <h1 class="text-white text-2xl font-bold mb-4">{{ name.name | depunycode }}/</h1>
 
     <div class="pt-4 pb-4 cursor-default">
-        <div class="bg-white p-4 rounded-md grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 filter drop-shadow">
+        <div class="bg-white pt-2 px-4 pb-2 rounded-md grid grid-cols-1 md:grid-cols-2 md:gap-4 mt-4 filter drop-shadow">
             <div class="md:pr-4 grid grid-rows-2 md:border-r border-gray-200">
-                <div class="md:pb-2 md:border-b border-gray-200">
-                    <h2 class="text-gray-400 uppercase text-sm mb-2">Total Bids</h2>
+                <div class="pt-2 md:border-b border-gray-200">
+                    <h2 class="text-gray-400 uppercase text-xs mb-0.5 leading-none">Total Bids</h2>
                     <p class="text-lg">{{ name.total_bids }}</p>
                 </div>
                 {% if name.status['status'] == 'BIDDING' %}
-                    <div class="pt-2">
-                        <h2 class="text-gray-400 uppercase text-sm mb-2">Time Left to Bid</h2>
+                    <div class="md:pt-4 pb-2 pt-2">
+                        <h2 class="text-gray-400 uppercase text-xs mb-0.5 leading-none">Time Left to Bid</h2>
                         <p class="text-lg">{{ name.status['bidding_period_end'] - height }} blocks</p>
                     </div>
                 {% elif name.status['status'] == 'REVEALING' %}
-                    <div class="pt-2">
-                        <h2 class="text-gray-400 uppercase text-sm mb-2">Time Left to Reveal</h2>
+                    <div class="md:pt-4 pb-2 pt-2">
+                        <h2 class="text-gray-400 uppercase text-xs mb-0.5 leading-none">Time Left to Reveal</h2>
                         <p class="text-lg">{{ name.status['reveal_period_end'] - height }} blocks</p>
                     </div>
                 {% endif %}
             </div>
-            <div class="grid grid-rows-2">
-                <div class="md:pb-2 md:border-b border-gray-200">
-                    <h2 class="text-gray-400 uppercase text-sm mb-2">Unique Views</h2>
+            <div class="md:pr-4 grid grid-rows-2 border-gray-200">
+                <div class="pt-2 md:border-b border-gray-200">
+                    <h2 class="text-gray-400 uppercase text-xs mb-0.5 leading-none">Unique Views</h2>
                     <p class="text-lg">{{ name.views }}</p>
                 </div>
-                <div class="pt-2">
-                    <h2 class="text-gray-400 uppercase text-sm mb-2">Highest Lockup</h2>
+                <div class="md:pt-4 pb-2 pt-2">
+                    <h2 class="text-gray-400 uppercase text-xs mb-0.5 leading-none">Highest Lockup</h2>
                     <p class="text-lg">{{ name.highest_lockup | as_hns }}</p>
                 </div>
             </div>
@@ -72,28 +72,26 @@
                 {% for out in name.outputs %}
                     {% if out.covenant_action == 'BID' %}
                         <div class="flex flex-row items-center border-b border-gray-200 pb-2">
-                            <div class="hidden md:block flex-grow-0">
-                                <div class="bg-gray-200 p-2 rounded-sm">
-                                    BID
-                                </div>
+                            <div class="hidden md:flex rounded-sm mr-2 bg-gray-100 w-10 h-10 text-sm flex text-center flex flex-row flex-shrink-0 items-center justify-center text-gray-800 font-semibold">
+                                BID
                             </div>
-                            <div class="ml-2 flex-grow-0">
+                            <div class="flex-grow-0">
                                 <div data-tx-hash="{{out.tx_hash}}">
-                                    <a href="/txs/{{ out.tx_hash }}" class="text-purple-500">
+                                    <a href="/txs/{{ out.tx_hash }}" class="text-purple-500 text-reg">
                                         {{ out.tx_hash | middle_ellipsis }}
                                     </a>
                                 </div>
-                                <div class="text-gray-400">{{ out.tx.mtime | time_ago }}</div>
+                                <div class="text-gray-400 text-xs">{{ out.tx.mtime | time_ago }}</div>
                             </div>
                             <div class="ml-auto text-right">
                                 {% if name.status['status'] == 'REVEALING' and out.corresponding_reveal %}
-                                    <div>{{ out.value | as_hns }}</div>
-                                    <div class="text-gray-400">
+                                    <div class="text-reg">{{ out.value | as_hns }}</div>
+                                    <div class="text-gray-400 text-xs">
                                         + {{ (out.value - out.corresponding_reveal.value) | as_hns }} added blind
                                     </div>
                                 {% else %}
-                                    <div>{{ out.value | as_hns }}</div>
-                                    <div class="text-gray-400">hidden until reveal</div>
+                                    <div class="text-reg">{{ out.value | as_hns }}</div>
+                                    <div class="text-gray-400 text-xs">hidden until reveal</div>
                                 {% endif %}
                             </div>
                         </div>

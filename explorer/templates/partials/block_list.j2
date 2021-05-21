@@ -4,8 +4,8 @@
             <div class="hidden md:flex rounded-sm mr-2 bg-gray-100 w-10 h-10 text-sm flex text-center flex flex-row flex-shrink-0 items-center justify-center text-gray-800 font-semibold">
                 BK
             </div>
-            <div class="ml-2">
-                <a class="text-purple-500 text-sm" href="/blocks/{{ block.height }}">{{ block.height }}</a>
+            <div>
+                <a class="text-purple-500 text-reg" href="/blocks/{{ block.height }}">{{ block.height }}</a>
                 <p class="text-gray-300 text-xs">
                     {{ block.time | time_ago }}
                 </p>
@@ -14,7 +14,7 @@
         {% if show_miner %}
             <div class="hidden md:block">
                 <p>
-                    <strong class="font-bold text-sm"">Miner:</strong>
+                    <strong class="font-bold text-reg"">Miner:</strong>
                     <a href="/addrs/{{ block.coinbase.address }}" class="text-purple-500 text-sm"">{{ block.coinbase.address | middle_ellipsis }}</a>
                 </p>
                 <p>

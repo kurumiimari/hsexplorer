@@ -10,7 +10,7 @@
                             COINBASE
                         </div>
                     {% else %}
-                        <a href="/addrs/{{ input.prevout_address }}" class="text-purple-500 text-sm">
+                        <a href="/addrs/{{ input.prevout_address }}" class="text-purple-500 text-reg">
                             {{ input.prevout_address | middle_ellipsis }}
                         </a>
                         <div class="bg-gray-100 text-gray-400 px-2 py-1 ml-auto text-xs rounded-sm">
@@ -31,7 +31,7 @@
             {% for out in tx.outputs %}
                 <div class="flex flex-row items-center">
                     {% if out.covenant_action == 'NONE' %}
-                        <a href="/addrs/{{ out.address }}" class="text-purple-500 text-sm">
+                        <a href="/addrs/{{ out.address }}" class="text-purple-500 text-reg">
                             {{ out.address | middle_ellipsis }}
                         </a>
                     {% else %}
@@ -58,7 +58,7 @@
                                 CLM
                             {% endif %}
                         </div>
-                        <a href="/names/{{ out.name.name }}" class="text-purple-500">
+                        <a href="/names/{{ out.name.name }}" class="text-purple-500 text-reg">
                             {{ out.name.name | depunycode }}
                         </a>
                     {% endif %}

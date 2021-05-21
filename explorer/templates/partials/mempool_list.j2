@@ -3,8 +3,8 @@
         <div class="hidden md:flex rounded-sm mr-2 bg-gray-100 w-10 h-10 text-sm flex text-center flex flex-row flex-shrink-0 items-center justify-center text-gray-800 font-semibold">
             TX
         </div>
-        <div class="ml-2">
-            <a class="text-purple-500 text-sm" href="/tx/{{ tx.hash }}">{{ tx.hash | middle_ellipsis }}</a>
+        <div>
+            <a class="text-purple-500 text-reg" href="/tx/{{ tx.hash }}">{{ tx.hash | middle_ellipsis }}</a>
             <p class="text-gray-300 text-xs">
                 {{ tx.first_seen | time_ago }}
             </p>

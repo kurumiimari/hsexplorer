@@ -5,7 +5,7 @@
         </div>
     {% endif %}
     <div>
-        <a class="text-purple-500 text-sm" href="/names/{{ name.name }}">{{ name.name | depunycode }}/</a>
+        <a class="text-purple-500 text-reg" href="/names/{{ name.name }}">{{ name.name | depunycode }}/</a>
         <p class="text-gray-300 text-xs">
             {{ name.status['bidding_period_end'] - block_height }}
             blocks left
