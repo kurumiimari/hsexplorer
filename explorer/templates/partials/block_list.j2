@@ -1,5 +1,5 @@
 {% for block in blocks %}
-    <div class="grid grid-cols-2 md:grid-cols-{{ '3' if show_miner else '2' }} gap-4 border-b border-gray-100 pb-4 items-start last:border-b-0 last:pb-0">
+    <div class="grid grid-cols-2 md:grid-cols-{{ '3' if show_miner else '2' }} gap-4 border-b border-gray-100 pb-4 items-center last:border-b-0 last:pb-0">
         <div class="flex flex-row items-center">
             <div class="hidden md:flex rounded-sm mr-2 bg-gray-100 w-10 h-10 text-sm flex text-center flex flex-row flex-shrink-0 items-center justify-center text-gray-800 font-semibold">
                 BK
@@ -14,17 +14,17 @@
         {% if show_miner %}
             <div class="hidden md:block">
                 <p>
-                    <strong class="font-bold">Miner:</strong>
-                    <a href="/addrs/{{ block.coinbase.address }}" class="text-purple-500">{{ block.coinbase.address | middle_ellipsis }}</a>
+                    <strong class="font-bold text-sm"">Miner:</strong>
+                    <a href="/addrs/{{ block.coinbase.address }}" class="text-purple-500 text-sm"">{{ block.coinbase.address | middle_ellipsis }}</a>
                 </p>
                 <p>
-                    <a class="text-purple-500" href="/blocks/{{ block.height }}">
+                    <a class="text-purple-500 text-sm" href="/blocks/{{ block.height }}">
                         {{ block.tx_count }} txns
                     </a>
                 </p>
             </div>
         {% endif %}
-        <div class="bg-gray-100 text-gray-400 px-2 py-1 ml-auto text-xs">
+        <div class="bg-gray-100 text-gray-400 px-2 py-1 ml-auto text-xs self-start">
             {{ block.coinbase_value | as_hns }}
         </div>
     </div>

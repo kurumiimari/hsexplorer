@@ -1,4 +1,4 @@
-<div class="flex flex-row border-b border-gray-100 pb-4 items-start last:border-b-0 last:pb-0">
+<div class="flex flex-row border-b border-gray-100 pb-4 items-center last:border-b-0 last:pb-0">
     {% if show_type %}
         <div class="hidden md:flex rounded-sm mr-2 bg-gray-100 w-10 h-10 text-sm flex text-center flex flex-row flex-shrink-0 items-center justify-center text-gray-800 font-semibold">
             AC
@@ -12,7 +12,7 @@
             (~{{ (name.status['bidding_period_end'] - block_height) | block_count_to_time }})
         </p>
     </div>
-    <div class="bg-gray-100 text-gray-400 px-2 py-1 ml-auto text-xs">
+    <div class="bg-gray-100 text-gray-400 px-2 py-1 ml-auto text-xs self-start">
         {{ name.total_bids }} bids
     </div>
 </div>

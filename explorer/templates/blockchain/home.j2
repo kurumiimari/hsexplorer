@@ -54,7 +54,7 @@
                 </div>
                 <div class="p-4 space-y-4 md:max-h-96 md:overflow-scroll">
                     {% for tx in txs %}
-                        <div class="flex flex-row border-b border-gray-100 pb-4 last:border-b-0 last:pb-0 items-start">
+                        <div class="flex flex-row border-b border-gray-100 pb-4 last:border-b-0 last:pb-0 items-center">
                             <div class="hidden md:flex rounded-sm mr-2 bg-gray-100 w-10 h-10 text-sm flex text-center flex flex-row flex-shrink-0 items-center justify-center text-gray-800 font-semibold">
                                 TX
                             </div>
@@ -62,7 +62,7 @@
                                 <a class="text-purple-500 text-sm" href="/txs/{{ tx.hash }}">{{ tx.hash | middle_ellipsis }}</a>
                                 <p class="text-gray-300 text-xs">{{ tx.block.time | time_ago }}</p>
                             </div>
-                            <div class="bg-gray-100 text-gray-400 px-2 py-1 ml-auto text-xs">
+                            <div class="bg-gray-100 text-gray-400 px-2 py-1 ml-auto text-xs self-start">
                                 {{ tx.output_amount | as_hns }}
                             </div>
                         </div>

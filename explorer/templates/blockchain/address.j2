@@ -1,44 +1,44 @@
 {% extends "layout.j2" %}
 
 {% block content %}
-    <h1 class="text-white text-4xl font-bold mb-4">Address Detail</h1>
+    <h1 class="text-white text-2xl font-bold mb-4">Address Detail</h1>
 
     <div class="pt-4 mb-4">
         <div class="bg-white rounded-md filter drop-shadow">
             <div class="p-4">
                 <table>
-                    <tr>
-                        <th class="pb-2 pr-2 text-left font-light">Address</th>
-                        <td class="pb-2">{{ address.address }}</td>
+                    <tr class="md:table-row-group md:flex-row flex flex-col border-b md:border-b-0">
+                        <th class="md:pr-20 md:p-2 text-left font-normal text-sm">Address:</th>
+                        <td class="text-sm font-semibold pb-2 md:p-0 break-all">{{ address.address }}</td>
                     </tr>
-                    <tr>
-                        <th class="pb-2 pr-2 text-left font-light">Total Transactions</th>
-                        <td class="pb-2">{{ address.tx_count }}</td>
+                    <tr class="md:table-row-group md:flex-row flex flex-col border-b md:border-b-0">
+                        <th class="md:pr-20 md:p-2 pt-2 text-left font-normal text-sm">Total Transactions:</th>
+                        <td class="text-sm pb-2 md:p-0 break-all">{{ address.tx_count }}</td>
                     </tr>
-                    <tr>
-                        <th class="pb-2 pr-2 text-left font-light">Total Received</th>
+                    <tr class="md:table-row-group md:flex-row flex flex-col border-b md:border-b-0">
+                        <th class="md:pr-20 md:p-2 pt-2 text-left font-normal text-sm">Total Received:</th>
                         {% if address.tx_count > 1000 %}
-                            <td class="pb-2"><p class="text-gray-300">Too many transactions to calculate total
+                            <td class="text-sm pb-2 md:p-0 break-all"><p class="text-gray-300">Too many transactions to calculate total
                                 received.</p></td>
                         {% else %}
-                            <td class="pb-2">{{ address.total_received | as_hns }}</td>
+                            <td class="text-sm pb-2 md:p-0 break-all">{{ address.total_received | as_hns }}</td>
                         {% endif %}
                     </tr>
-                    <tr>
-                        <th class="pb-2 pr-2 text-left font-light">Total Spent</th>
+                    <tr class="md:table-row-group md:flex-row flex flex-col border-b md:border-b-0">
+                        <th class="md:pr-20 md:p-2 pt-2 text-left font-normal text-sm">Total Spent:</th>
                         {% if address.tx_count > 1000 %}
-                            <td class="pb-2"><p class="text-gray-300">Too many transactions to calculate total
+                            <td class="text-sm pb-2 md:p-0 break-all"><p class="text-gray-300">Too many transactions to calculate total
                                 spent.</p></td>
                         {% else %}
-                            <td class="pb-2">{{ address.total_spent | as_hns }}</td>
+                            <td class="text-sm pb-2 md:p-0 break-all">{{ address.total_spent | as_hns }}</td>
                         {% endif %}
                     </tr>
-                    <tr>
-                        <th class="pr-2 text-left font-light">Balance</th>
+                    <tr class="md:table-row-group md:flex-row flex flex-col">
+                        <th class="md:pr-20 md:p-2 pt-2 text-left font-normal text-sm">Balance:</th>
                         {% if address.tx_count > 1000 %}
-                            <td><p class="text-gray-300">Too many transactions to calculate balance.</p></td>
+                            <td class="text-sm pb-2 md:p-0 break-all"><p class="text-gray-300">Too many transactions to calculate balance.</p></td>
                         {% else %}
-                            <td>{{ address.balance | as_hns }}</td>
+                            <td class="text-sm pb-2 md:p-0 break-all">{{ address.balance | as_hns }}</td>
                         {% endif %}
                     </tr>
                 </table>
@@ -50,7 +50,7 @@
         <div class="pt-4 pb-4">
             <div class="bg-white rounded-md filter drop-shadow">
                 <div class="px-4 py-2 border-b border-gray-200">
-                    <h3 class="font-bold truncate">
+                    <h3 class="font-semibold truncate">
                         TX # <a href="/txs/{{ tx.hash }}" class="text-purple-500">{{ tx.hash }}</a>
                     </h3>
                 </div>

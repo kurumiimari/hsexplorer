@@ -1,5 +1,5 @@
 {% for tx in mempool %}
-    <div class="flex flex-row items-start border-b border-gray-100 pb-4">
+    <div class="flex flex-row items-center border-b border-gray-100 pb-4">
         <div class="hidden md:flex rounded-sm mr-2 bg-gray-100 w-10 h-10 text-sm flex text-center flex flex-row flex-shrink-0 items-center justify-center text-gray-800 font-semibold">
             TX
         </div>
@@ -9,7 +9,7 @@
                 {{ tx.first_seen | time_ago }}
             </p>
         </div>
-        <div class="bg-gray-100 text-gray-400 px-2 py-1 ml-auto text-xs">
+        <div class="bg-gray-100 text-gray-400 px-2 py-1 ml-auto text-xs self-start">
             {{ tx.aggregate_value | as_hns }}
         </div>
     </div>
