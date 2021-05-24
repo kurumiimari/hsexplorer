@@ -1,44 +1,44 @@
 {% extends "layout.j2" %}
 
 {% block content %}
-    <h1 class="text-white text-center text-xl font-bold mb-4">The Handshake Block Explorer</h1>
+    <h1 class="text-white text-center text-2xl font-semibold mb-4">The Handshake Block Explorer</h1>
 
     <form class="block bg-white rounded-md overflow-hidden flex flex-row mb-4 filter drop-shadow" action="/search" method="GET">
-        <input name="query" type="text" class="text-xl font-light py-2 px-3 w-full" placeholder="Search by Address / TX Hash / Block / TLD">
+        <input name="query" type="text" class="text-sm py-2 px-3 w-full placeholder-gray-300" placeholder="Search by Address / TX Hash / Block / TLD">
         <button class="bg-blue-500 px-4" type="submit">
             <img src="{{ url_for('static', filename='images/search.svg') }}">
         </button>
     </form>
 
     <div class="pt-4 pb-4">
-        <div class="bg-white p-4 rounded-md grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 filter drop-shadow">
+        <div class="bg-white pt-2 px-4 pb-2 rounded-md grid grid-cols-1 md:grid-cols-3 md:gap-4 mt-4 filter drop-shadow">
             <div class="md:pr-4 grid grid-rows-2 md:border-r border-gray-200">
-                <div class="pb-2 md:border-b border-gray-200">
-                    <h2 class="text-gray-400 uppercase text-sm mb-2">HNS Price</h2>
+                <div class="pt-2 md:border-b border-gray-200">
+                    <h2 class="text-gray-400 uppercase text-xs mb-0.5 leading-none">HNS Price</h2>
                     <p class="text-lg">${{ latest_price.price_usd / 1000000 }}</p>
                 </div>
-                <div class="pt-2">
-                    <h2 class="text-gray-400 uppercase text-sm mb-2">Market Cap</h2>
+                <div class="md:pt-4 pb-2 pt-2">
+                    <h2 class="text-gray-400 uppercase text-xs mb-0.5 leading-none">Market Cap</h2>
                     <p class="text-lg">${{ latest_price.market_cap_usd | pretty_number }}</p>
                 </div>
             </div>
             <div class="grid grid-rows-2">
-                <div class="pb-2 md:border-b border-gray-200">
-                    <h2 class="text-gray-400 uppercase text-sm mb-2">Opened Names</h2>
+                <div class="pt-2 md:border-b border-gray-200">
+                    <h2 class="text-gray-400 uppercase text-xs mb-0.5 leading-none">Opened Names</h2>
                     <p class="text-lg">{{ entity_counts.opened_names | pretty_number }}</p>
                 </div>
-                <div class="pt-2">
-                    <h2 class="text-gray-400 uppercase text-sm mb-2">Unconfirmed</h2>
+                <div class="md:pt-4 pb-2 pt-2">
+                    <h2 class="text-gray-400 uppercase text-xs mb-0.5 leading-none">Unconfirmed</h2>
                     <p class="text-lg">{{ mempool_count | pretty_number }} TXNS</p>
                 </div>
             </div>
             <div class="md:pl-4 grid grid-rows-2 md:border-l border-gray-200">
-                <div class="pb-2 md:border-b border-gray-200">
-                    <h2 class="text-gray-400 uppercase text-sm mb-2">Network Hashrate</h2>
+                <div class="pt-2 md:border-b border-gray-200">
+                    <h2 class="text-gray-400 uppercase text-xs mb-0.5 leading-none">Network Hashrate</h2>
                     <p class="text-lg">{{ info.hashrate | si_units }}H/s</p>
                 </div>
-                <div class="pt-2">
-                    <h2 class="text-gray-400 uppercase text-sm mb-2">Difficulty</h2>
+                <div class="md:pt-4 pb-2 pt-2">
+                    <h2 class="text-gray-400 uppercase text-xs mb-0.5 leading-none">Difficulty</h2>
                     <p class="text-lg">{{ info.difficulty | si_units }}H</p>
                 </div>
             </div>
@@ -48,21 +48,21 @@
     <div class="pt-4 pb-4">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="bg-white rounded-md filter drop-shadow">
-                <div class="px-4 py-2 border-b border-gray-200 flex flex-row">
+                <div class="px-4 py-2 border-b border-gray-200 flex flex-row items-center">
                     <h3 class="font-bold">Recent Transactions</h3>
-                    <a href="/txs" class="ml-auto uppercase text-purple-500">View All</a>
+                    <a href="/txs" class="ml-auto uppercase text-purple-500 text-xs">View All</a>
                 </div>
                 <div class="p-4 space-y-4 md:max-h-96 md:overflow-scroll">
                     {% for tx in txs %}
-                        <div class="flex flex-row border-b border-gray-100 pb-4 items-center last:border-b-0 last:pb-0">
-                            <div class="hidden md:flex rounded-sm mr-2 bg-gray-200 w-12 h-12 flex text-center flex flex-row items-center justify-center text-gray-400">
+                        <div class="flex flex-row border-b border-gray-100 pb-4 last:border-b-0 last:pb-0 items-center">
+                            <div class="hidden md:flex rounded-sm mr-2 bg-gray-100 w-10 h-10 text-sm flex text-center flex flex-row flex-shrink-0 items-center justify-center text-gray-800 font-semibold">
                                 TX
                             </div>
                             <div>
-                                <a class="text-purple-500" href="/txs/{{ tx.hash }}">{{ tx.hash | truncate(24) }}</a>
-                                <p class="text-gray-300 text-sm">{{ tx.block.time | time_ago }}</p>
+                                <a class="text-purple-500 text-reg" href="/txs/{{ tx.hash }}">{{ tx.hash | middle_ellipsis }}</a>
+                                <p class="text-gray-300 text-xs">{{ tx.block.time | time_ago }}</p>
                             </div>
-                            <div class="bg-gray-200 text-gray-400 px-2 py-1 rounded-sm ml-auto">
+                            <div class="bg-gray-100 text-gray-400 px-2 py-1 ml-auto text-xs self-start">
                                 {{ tx.output_amount | as_hns }}
                             </div>
                         </div>

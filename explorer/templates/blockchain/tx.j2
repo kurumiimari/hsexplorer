@@ -1,7 +1,7 @@
 {% extends "layout.j2" %}
 
 {% block content %}
-    <h1 class="text-white text-4xl font-bold mb-4">Transaction Detail</h1>
+    <h1 class="text-white text-2xl font-bold mb-4">Transaction Detail</h1>
 
     <div class="pt-4 mb-4">
         <div class="bg-white rounded-md filter drop-shadow">
@@ -10,27 +10,27 @@
             </div>
             <div class="p-4">
                 <table>
-                    <tr>
-                        <th class="pb-2 pr-2 text-left font-light">Transaction Hash</th>
-                        <td class="pb-2 max-w-min">{{ tx.hash }}</td>
+                    <tr class="md:table-row-group md:flex-row flex flex-col border-b md:border-b-0">
+                        <th class="md:pr-20 md:p-2 text-left font-normal text-sm">Transaction Hash:</th>
+                        <td class="text-sm font-semibold pb-2 md:p-0 break-all">{{ tx.hash }}</td>
                     </tr>
-                    <tr>
-                        <th class="pb-2 pr-2 text-left font-light">Block</th>
-                        <td class="pb-2">
+                    <tr class="md:table-row-group md:flex-row flex flex-col border-b md:border-b-0">
+                        <th class="md:pr-20 md:p-2 pt-2 text-left font-normal text-sm">Block:</th>
+                        <td class="text-sm pb-2 md:p-0 break-all">
                             <a href="/blocks/{{ tx.block_height }}" class="text-purple-500">{{ tx.block_height }}</a>
                         </td>
                     </tr>
-                    <tr>
-                        <th class="pb-2 pr-2 text-left font-light">Time</th>
-                        <td class="pb-2">{{ tx.mtime | format_datetime('%B %d, %Y %I:%M:%S %Z') }}</td>
+                    <tr class="md:table-row-group md:flex-row flex flex-col border-b md:border-b-0">
+                        <th class="md:pr-20 md:p-2 pt-2 text-left font-normal text-sm">Time:</th>
+                        <td class="text-sm pb-2 md:p-0 break-all">{{ tx.mtime | format_datetime('%B %d, %Y %I:%M:%S %Z') }}</td>
                     </tr>
-                    <tr>
-                        <th class="pb-2 pr-2 text-left font-light">Amount</th>
-                        <td class="pb-2">{{ tx.output_amount | as_hns }}</td>
+                    <tr class="md:table-row-group md:flex-row flex flex-col border-b md:border-b-0">
+                        <th class="md:pr-20 md:p-2 pt-2 text-left font-normal text-sm">Amount</th>
+                        <td class="text-sm pb-2 md:p-0 break-all">{{ tx.output_amount | as_hns }}</td>
                     </tr>
-                    <tr>
-                        <th class="pb-2 pr-2 text-left font-light">Fee</th>
-                        <td class="pb-2">{{ tx.fee | as_hns }}</td>
+                    <tr class="md:table-row-group md:flex-row flex flex-col">
+                        <th class="md:pr-20 md:p-2 pt-2 text-left font-normal text-sm">Fee:</th>
+                        <td class="text-sm pb-2 md:p-0 break-all">{{ tx.fee | as_hns }}</td>
                     </tr>
                 </table>
             </div>
