@@ -282,7 +282,7 @@ class Name(db.Model):
 
         bidding_period_end = state['open_height'] + \
                              protocol.network_main.open_period + \
-                             protocol.network_main.bidding_period
+                             protocol.network_main.bidding_period + 1
         state['bidding_period_end'] = bidding_period_end
         if bidding_period_end > block_height:
             state['status'] = 'BIDDING'
@@ -310,7 +310,7 @@ class Name(db.Model):
     @classmethod
     def ending_soon(cls):
         # ending in 6 hours
-        lo = Block.max_height() - protocol.network_main.bidding_period - protocol.network_main.open_period
+        lo = Block.max_height() - protocol.network_main.bidding_period - protocol.network_main.open_period + 1
         hi = lo + 36
         opens = db.session.query(Output.covenant_name_hash) \
             .filter(Output.block_height > lo) \
