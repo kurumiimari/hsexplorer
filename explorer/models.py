@@ -282,7 +282,7 @@ class Name(db.Model):
 
         bidding_period_end = state['open_height'] + \
                              protocol.network_main.open_period + \
-                             protocol.network_main.bidding_period + 1
+                             protocol.network_main.bidding_period - 1
         state['bidding_period_end'] = bidding_period_end
         if bidding_period_end > block_height:
             state['status'] = 'BIDDING'
