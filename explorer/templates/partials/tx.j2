@@ -4,17 +4,25 @@
 
         <div class="space-y-4">
             {% for input in tx.inputs %}
-                <div class="flex flex-row items-center">
-                    {% if input.coinbase %}
-                        <div class="bg-gray-100 text-gray-400 px-2 py-1 ml-auto text-xs rounded-sm">
-                            COINBASE
-                        </div>
-                    {% else %}
-                        <a href="/addrs/{{ input.prevout_address }}" class="text-purple-500 text-reg">
-                            {{ input.prevout_address | middle_ellipsis }}
-                        </a>
-                        <div class="bg-gray-100 text-gray-400 px-2 py-1 ml-auto text-xs rounded-sm">
-                            {{ input.prevout.value | as_hns }}
+                <div>
+                    <div class="flex flex-row items-center mb-2">
+                        {% if input.coinbase %}
+                            <div class="bg-gray-100 text-gray-400 px-2 py-1 ml-auto text-xs rounded-sm">
+                                COINBASE
+                            </div>
+                        {% else %}
+                            <a href="/addrs/{{ input.prevout_address }}" class="text-purple-500 text-reg">
+                                {{ input.prevout_address | middle_ellipsis }}
+                            </a>
+                            <div class="bg-gray-100 text-gray-400 px-2 py-1 ml-auto text-xs rounded-sm">
+                                {{ input.prevout.value | as_hns }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% if not input.coinbase %}
+                        <div class="text-sm">
+                            <span class="text-gray-400">Prevout:</span>
+                            <a class="text-purple-500" href="/txs/{{ input.prevout_hash }}">{{ input.prevout_hash | middle_ellipsis }}</a>
                         </div>
                     {% endif %}
                 </div>
