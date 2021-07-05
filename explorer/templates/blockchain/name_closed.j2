@@ -63,7 +63,9 @@
                             </div>
                             <div>
                                 <p class="text-xs text-gray-400 font-semibold mb-1">Digest</p>
-                                {{ ds.algorithm.hex() }}
+                                <div class="w-100 overflow-scroll">
+                                    {{ ds.digest.hex() }}
+                                </div>
                             </div>
                         </div>
                     {% endfor %}
@@ -141,11 +143,13 @@
                                 <p class="text-xs text-gray-400 font-semibold mb-1">Type</p>
                                 TXT
                             </div>
-                            <div class="text-reg">
+                            <div class="text-reg col-span-4">
                                 <p class="text-xs text-gray-400 font-semibold mb-1">Entries</p>
-                                {% for entry in txt.entries %}
-                                    {{ entry.decode('utf-8') }}<br>
-                                {% endfor %}
+                                <div class="w-100 overflow-scroll">
+                                    {% for entry in txt.entries %}
+                                        {{ entry.decode('utf-8') }}<br>
+                                    {% endfor %}
+                                </div>
                             </div>
                         </div>
                     {% endfor %}
