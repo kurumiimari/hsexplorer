@@ -84,9 +84,10 @@ def depunycode(name):
     try:
         return idna.decode(name)
     except Exception as e:
-        current_app.logger.error('Error decoding punycode:')
-        current_app.logger.exception(e)
-        return name
+        try:
+            return name.encode('utf-8').decode('idna')
+        except Exception as e:
+            return name
 
 
 def as_hns(value, include_unit=True):
