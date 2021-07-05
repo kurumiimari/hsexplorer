@@ -2,6 +2,7 @@ import decimal
 import os
 from datetime import datetime, timedelta
 
+import idna
 from flask import current_app, url_for
 
 from explorer import protocol
@@ -81,7 +82,7 @@ def time_ago(timestamp, suffix='ago'):
 
 def depunycode(name):
     try:
-        return name.encode('utf-8').decode('idna')
+        return idna.decode(name)
     except Exception as e:
         current_app.logger.error('Error decoding punycode:')
         current_app.logger.exception(e)
