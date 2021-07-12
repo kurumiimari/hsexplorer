@@ -17,7 +17,6 @@ body {
 
 .main-cta-button {
     background: linear-gradient(90.64deg, #693DB1 1.75%, #3329A8 96.46%);
-    height: 48px;
 }
 
 .main-cta-button:disabled {

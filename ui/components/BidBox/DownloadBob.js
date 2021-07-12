@@ -7,7 +7,7 @@ export default function DownloadBob() {
         Use Bob wallet to place a bid.
       </div>
       <a href="https://bobwallet.io" target="_blank"
-         className="text-white font-bold block p-2 text-center rounded-md main-cta-button">
+         className="text-white font-bold block p-3 text-center rounded-md main-cta-button">
         Download Bob
       </a>
     </div>
