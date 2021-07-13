@@ -213,6 +213,10 @@ def index_open(out):
 
 def index_claim(out):
     name = bytes.fromhex(out.covenant_items[2]).decode('utf-8')
+    # there can be duplicate name claims now
+    existing_name = Name.find_by_name(name, False)
+    if existing_name is not None:
+        return
     db.session.add(Name(
         hash=out.covenant_items[0],
         name=name
