@@ -69,33 +69,33 @@
                 <h3 class="font-bold">Bid History</h3>
             </div>
             <div class="p-4 space-y-2">
-                {% for out in name.outputs %}
-                    {% if out.covenant_action == 'BID' %}
-                        <div class="flex flex-row items-center border-b border-gray-200 pb-2">
-                            <div class="hidden md:flex rounded-sm mr-2 bg-gray-100 w-10 h-10 text-sm flex text-center flex flex-row flex-shrink-0 items-center justify-center text-gray-800 font-semibold">
-                                BID
-                            </div>
-                            <div class="flex-grow-0">
-                                <div data-tx-hash="{{out.tx_hash}}">
-                                    <a href="/txs/{{ out.tx_hash }}" class="text-purple-500 text-reg">
-                                        {{ out.tx_hash | middle_ellipsis }}
-                                    </a>
-                                </div>
-                                <div class="text-gray-400 text-xs">{{ out.tx.mtime | time_ago }}</div>
-                            </div>
-                            <div class="ml-auto text-right">
-                                {% if name.status['status'] == 'REVEALING' and out.corresponding_reveal %}
-                                    <div class="text-reg">{{ out.value | as_hns }}</div>
-                                    <div class="text-gray-400 text-xs">
-                                        + {{ (out.value - out.corresponding_reveal.value) | as_hns }} added blind
-                                    </div>
-                                {% else %}
-                                    <div class="text-reg">{{ out.value | as_hns }}</div>
-                                    <div class="text-gray-400 text-xs">hidden until reveal</div>
-                                {% endif %}
-                            </div>
+                {% for out in name.outputs if out.covenant_action == 'BID' %}
+                    <div class="flex flex-row items-center border-b border-gray-200 pb-2">
+                        <div class="hidden md:flex rounded-sm mr-2 bg-gray-100 w-10 h-10 text-sm flex text-center flex flex-row flex-shrink-0 items-center justify-center text-gray-800 font-semibold">
+                            BID
                         </div>
-                    {% endif %}
+                        <div class="flex-grow-0">
+                            <div data-tx-hash="{{out.tx_hash}}">
+                                <a href="/txs/{{ out.tx_hash }}" class="text-purple-500 text-reg">
+                                    {{ out.tx_hash | middle_ellipsis }}
+                                </a>
+                            </div>
+                            <div class="text-gray-400 text-xs">{{ out.tx.mtime | time_ago }}</div>
+                        </div>
+                        <div class="ml-auto text-right">
+                            {% if name.status['status'] == 'REVEALING' and out.corresponding_reveal %}
+                                <div class="text-reg">{{ out.value | as_hns }}</div>
+                                <div class="text-gray-400 text-xs">
+                                    + {{ (out.value - out.corresponding_reveal.value) | as_hns }} added blind
+                                </div>
+                            {% else %}
+                                <div class="text-reg">{{ out.value | as_hns }}</div>
+                                <div class="text-gray-400 text-xs">hidden until reveal</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% else %}
+                    No bids yet!
                 {% endfor %}
             </div>
         </div>

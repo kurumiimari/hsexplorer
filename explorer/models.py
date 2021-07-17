@@ -229,7 +229,7 @@ class Name(db.Model):
 
     @property
     def renewal_height(self):
-        out = Output.query.filter(Output.covenant_action.in_(('REGISTER', 'RENEW'))) \
+        out = Output.query.filter(Output.covenant_action.in_(('REGISTER', 'RENEW', 'CLAIM'))) \
             .filter(Output.covenant_name_hash == self.hash) \
             .order_by(Output.id.desc()) \
             .first()
@@ -293,6 +293,12 @@ class Name(db.Model):
         if reveal_period_end > block_height:
             state['status'] = 'REVEALING'
             return state
+
+        # edge case: name was never bid on
+        if self.total_bids == 0:
+            state['status'] = 'OPENING'
+            return state
+
 
         state['status'] = 'CLOSED'
         return state
