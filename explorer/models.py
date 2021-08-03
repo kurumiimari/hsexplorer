@@ -85,10 +85,13 @@ class Tx(db.Model):
 
     @property
     def output_amount(self):
-        return db.session.query(func.sum(Output.value), Output.tx_hash) \
+        res = db.session.query(func.sum(Output.value), Output.tx_hash) \
             .filter(Output.tx_hash == self.hash) \
             .group_by(Output.tx_hash) \
-            .first()[0]
+            .first()
+        if res is None:
+            return 0
+        return res[0]
 
     @classmethod
     def find_by_hash(cls, h):
