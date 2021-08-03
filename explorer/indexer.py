@@ -68,6 +68,7 @@ def index_blocks():
         except Exception as e:
             current_app.logger.error('Error while indexing:')
             current_app.logger.exception(e)
+            db.session.rollback()
         finally:
             redis_client.delete('lock.indexer')
             lock_active = False
@@ -122,6 +123,7 @@ def index_info():
 
 
 def index_block(height):
+    current_app.logger.info(f'Indexing block {height}.')
     entity_counts = EntityCounts.latest()
     block_json = node_client.get_block(height)
     block = Block(
