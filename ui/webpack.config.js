@@ -8,6 +8,7 @@ module.exports = {
   entry: {
     names: './entries/names.js',
     'name-auction': './entries/name-auction.js',
+    'nav-more-btn': './entries/nav-more-btn.js',
   },
   output: {
     filename: isProd ? '[name].[contenthash].bundle.js' : '[name].bundle.js',

@@ -17,7 +17,7 @@
     <meta name="theme-color" content="#ffffff">
 </head>
 <body class="bg-gray-100 cursor-default">
-<nav class="py-2 px-4 main-nav grid grid-cols-2 md:grid-cols-3 gap-4 bg-white filter drop-shadow-lg items-center">
+<nav class="py-2 px-4 main-nav grid grid-cols-2 md:grid-cols-3 gap-4 bg-white filter drop-shadow-lg items-center relative z-20">
     <a class="hidden md:block main-nav__logo" href="/">
         <img src="{{ url_for('static', filename='images/logo.svg') }}" />
     </a>
@@ -40,6 +40,10 @@
         <a href="/domains" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md">
             Domains
         </a>
+
+        <div class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md cursor-pointer" id="nav-more-btn-root">
+            More
+        </a>
     </div>
 </nav>
 <section class="relative">
@@ -58,5 +62,6 @@
 <!-- Fathom - beautiful, simple website analytics -->
 <script src="https://cdn.usefathom.com/script.js" data-site="UAZMWFZE" defer></script>
 <!-- / Fathom -->
+    {{ bundle_root('nav-more-btn') }}
 </body>
 </html>
