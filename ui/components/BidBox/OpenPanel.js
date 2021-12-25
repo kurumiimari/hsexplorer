@@ -30,7 +30,7 @@ export default function OpenPanel(props) {
       </div>
       {error && <div className="text-sm text-red text-center w-full mb-2">{error}</div>}
       <button
-        className="text-white font-bold block p-2 text-center rounded-md w-full main-cta-button inline-flex flex-row justify-center items-center"
+        className="text-white font-bold block p-3 text-center rounded-md w-full main-cta-button inline-flex flex-row justify-center items-center"
         onClick={openBid}
         disabled={props.opening || isLoading}
       >
